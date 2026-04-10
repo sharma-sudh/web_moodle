@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Technologies Portfolio — Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1a2e;
+      --rust: #c0392b;
+      --warm-gray: #8c8c8c;
+      --card-bg: #ffffff;
+      --border: #e0d9cc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      background: var(--ink);
+      padding: 0.85rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid var(--rust);
+    }
+    .navbar-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--cream) !important;
+      letter-spacing: 0.02em;
+    }
+    .navbar-brand span { color: var(--rust); }
+    .nav-link {
+      color: #ccc !important;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem !important;
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--cream) !important; }
+    .dropdown-menu {
+      background: var(--ink);
+      border: 1px solid #333;
+      border-radius: 4px;
+      min-width: 210px;
+    }
+    .dropdown-item {
+      color: #aaa;
+      font-size: 0.83rem;
+      padding: 0.45rem 1.2rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-item:hover { background: #2a2a40; color: var(--cream); }
+    .dropdown-divider { border-color: #333; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .hero p {
+      color: #aaa;
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .btn-rust {
+      background: var(--rust);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.8rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-rust:hover { opacity: 0.85; color: #fff; }
+    .btn-outline-cream {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid #555;
+      padding: 0.65rem 1.8rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline-cream:hover { border-color: var(--cream); color: var(--cream); }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .section-sub {
+      color: var(--warm-gray);
+      font-size: 0.88rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--rust);
+      margin-bottom: 2.2rem;
+    }
+
+    /* ─── TASK CARDS ─── */
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.4rem;
+    }
+    .task-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .task-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--rust);
+    }
+    .task-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.09); transform: translateY(-2px); }
+    .task-num {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+    .task-card h5 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .task-card p {
+      font-size: 0.83rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .task-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      margin-top: 0.8rem;
+      font-weight: 600;
+    }
+    .badge-html { background: #fff3e0; color: #e65100; }
+    .badge-css  { background: #e8f5e9; color: #2e7d32; }
+    .badge-js   { background: #e3f2fd; color: #1565c0; }
+    .badge-react{ background: #fce4ec; color: #ad1457; }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 2.2rem 1.5rem;
+    }
+    .stats-bar .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--rust);
+    }
+    .stats-bar .stat-label {
+      font-size: 0.78rem;
+      color: #aaa;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      color: #888;
+      text-align: center;
+      padding: 1.6rem;
+      font-size: 0.8rem;
+      margin-top: 3rem;
+    }
+    footer span { color: var(--rust); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: #c5bfb0; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">Web<span>Dev</span> Portfolio</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="about.html#profile-section">Student Profile</a></li>
+            <li><a class="dropdown-item" href="about.html#course-section">Course Outline</a></li>
+            <li><a class="dropdown-item" href="about.html#skills-section">Skills &amp; Progress</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="about.html#dept-section">Department Info</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Works</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="works.html#gallery-section">Gallery</a></li>
+            <li><a class="dropdown-item" href="works.html#menu-section">Restaurant Menu</a></li>
+            <li><a class="dropdown-item" href="works.html#catalog-section">Product Catalog</a></li>
+            <li><a class="dropdown-item" href="works.html#leaderboard-section">Leaderboard</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="works.html#interactive-section">Interactive Demos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="works.html#contact-section">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 1 — HOME
+═══════════════════════════════════ -->
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="hero-eyebrow">Web Technologies — Moodle Portfolio</p>
+    <h1>Learning Web Dev,<br/><em>One Task at a Time</em></h1>
+    <p>A cohesive showcase of 51 hands-on assignments covering HTML, CSS, JavaScript, and React — built from scratch over one semester.</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a class="btn-rust" href="works.html">View My Work</a>
+      <a class="btn-outline-cream" href="works.html#contact-section">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="section-wrap py-0">
+      <div class="row text-center g-4">
+        <div class="col-6 col-md-3">
+          <div class="stat-num" id="counter-tasks">0</div>
+          <div class="stat-label">Tasks Completed</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Technologies</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Site Pages</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Semester</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task overview -->
+  <div class="section-wrap">
+    <p class="section-sub">ASSIGNMENT OVERVIEW</p>
+    <h2 class="section-title">All Moodle Tasks</h2>
+    <div class="divider"></div>
+
+    <div class="task-grid">
+
+      <!-- HTML Basics -->
+      <div class="task-card">
+        <div class="task-num">Task 1–2</div>
+        <h5>Basic HTML &amp; Web Server Config</h5>
+        <p>First HTML program and Apache/Nginx server configuration on localhost.</p>
+        <span class="task-badge badge-html">HTML</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 3–4</div>
+        <h5>HTML Structure &amp; Local Server Files</h5>
+        <p>Basic HTML skeleton with head/body and 5 linked pages on a local server.</p>
+        <span class="task-badge badge-html">HTML</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 5–6</div>
+        <h5>Div Layouts &amp; Home Page</h5>
+        <p>Four-section div layout (header, nav, main, footer) plus a home page with text and images.</p>
+        <span class="task-badge badge-html">HTML</span>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 7</div>
+        <h5>Stacked Section Layout</h5>
+        <p>Homepage main content area with three 200px stacked sections using div tags.</p>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 8</div>
+        <h5>About Page Semantics</h5>
+        <p>About page using semantic tags: company header, mission, team, and footer.</p>
+        <span class="task-badge badge-html">HTML</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 9</div>
+        <h5>Gallery Page</h5>
+        <p>Structured gallery with header, image grid container, and captioned thumbnails.</p>
+        <span class="task-badge badge-html">HTML</span>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 10</div>
+        <h5>Contact Us Page</h5>
+        <p>Contact page with info block (address, phone, email) and a form section.</p>
+        <span class="task-badge badge-html">HTML</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 11–12</div>
+        <h5>Restaurant Menu &amp; Course Outline</h5>
+        <p>HTML table for a menu (dish, description, price) and a web technologies course outline.</p>
+        <span class="task-badge badge-html">HTML</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 13–14</div>
+        <h5>Leaderboard &amp; Student Profiles</h5>
+        <p>Ordered student leaderboard table and a profile table with photo, name, and GPA columns.</p>
+        <span class="task-badge badge-html">HTML</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 15–16</div>
+        <h5>Student Profiles &amp; Product Catalog</h5>
+        <p>Student details table and a product catalog with image, name, category, and price.</p>
+        <span class="task-badge badge-html">HTML</span>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 17–18</div>
+        <h5>Dashboard &amp; Container Layout</h5>
+        <p>Simple stats dashboard and a max-width 1200px container with responsive columns.</p>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 19–20</div>
+        <h5>3-Column Layout &amp; Login Page</h5>
+        <p>Flex 3-column wrapper and a centred login + registration form on a single page.</p>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 21–23</div>
+        <h5>Course Details, Product Page &amp; Contact Form</h5>
+        <p>College course page, online store product page, and responsive contact form — all with external CSS.</p>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 24</div>
+        <h5>GitHub Pages Portfolio</h5>
+        <p>Personal portfolio hosted on GitHub Pages with a linked repository.</p>
+        <span class="task-badge badge-html">HTML</span>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 25–27</div>
+        <h5>Login, Registration &amp; Contact Forms</h5>
+        <p>Styled login form, registration form with validation hints, and full contact form with CSS.</p>
+        <span class="task-badge badge-css">CSS</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 28–32</div>
+        <h5>JavaScript Fundamentals</h5>
+        <p>Button alerts, input on submit, calculateTotal(), Show/Hide toggle, and status color change.</p>
+        <span class="task-badge badge-js">JavaScript</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 33–37</div>
+        <h5>JS Form Validation</h5>
+        <p>University registration, checkout form, VTOP login, exam registration, and hotel booking — all with JS validation.</p>
+        <span class="task-badge badge-js">JavaScript</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 38–41</div>
+        <h5>JS DOM &amp; Events</h5>
+        <p>Registration form, focus() method on login, mouseover product image, and real-time email/password validation.</p>
+        <span class="task-badge badge-js">JavaScript</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 42–45</div>
+        <h5>Modals, Tooltips &amp; Positioning</h5>
+        <p>Multi-modal page (login/signup/confirm), product card hover tooltip, image caption overlay, and z-index layering.</p>
+        <span class="task-badge badge-css">CSS</span>
+        <span class="task-badge badge-js">JavaScript</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 46–50</div>
+        <h5>Show/Hide, Fade Gallery &amp; Class Toggle</h5>
+        <p>Toggle paragraph visibility, thumbnail fade gallery, .highlight class toggle, .completed strikethrough, and box-model div.</p>
+        <span class="task-badge badge-js">JavaScript</span>
+      </div>
+
+      <div class="task-card">
+        <div class="task-num">Task 51</div>
+        <h5>Basic React App</h5>
+        <p>First React component displaying dynamic content using JSX and functional components.</p>
+        <span class="task-badge badge-react">React</span>
+      </div>
+
+    </div>
+  </div>
+
+
+<footer>
+  Web Technologies Portfolio &nbsp;·&nbsp; Moodle Tasks 1–51 &nbsp;·&nbsp; Built with <span>HTML · CSS · JS · Bootstrap</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* ─── COUNTER ANIMATION ─── */
+  function animateCounter(el, target, dur) {
+    let start = 0;
+    const step = dur / target;
+    const t = setInterval(() => {
+      start++;
+      el.textContent = start;
+      if (start >= target) clearInterval(t);
+    }, step);
+  }
+  window.addEventListener('load', () => {
+    animateCounter(document.getElementById('counter-tasks'), 51, 1200);
+  });
+</script>
+</body>
+</html>

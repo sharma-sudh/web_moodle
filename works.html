@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Technologies Portfolio — Works &amp; Contact</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1a2e;
+      --rust: #c0392b;
+      --warm-gray: #8c8c8c;
+      --card-bg: #ffffff;
+      --border: #e0d9cc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      background: var(--ink);
+      padding: 0.85rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid var(--rust);
+    }
+    .navbar-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--cream) !important;
+      letter-spacing: 0.02em;
+    }
+    .navbar-brand span { color: var(--rust); }
+    .nav-link {
+      color: #ccc !important;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem !important;
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--cream) !important; }
+    .dropdown-menu {
+      background: var(--ink);
+      border: 1px solid #333;
+      border-radius: 4px;
+      min-width: 210px;
+    }
+    .dropdown-item {
+      color: #aaa;
+      font-size: 0.83rem;
+      padding: 0.45rem 1.2rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-item:hover { background: #2a2a40; color: var(--cream); }
+    .dropdown-divider { border-color: #333; }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .section-sub {
+      color: var(--warm-gray);
+      font-size: 0.88rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--rust);
+      margin-bottom: 2.2rem;
+    }
+
+    /* ─── WORKS PAGE ─── */
+    .works-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+    .works-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+    .works-header p { color: #aaa; max-width: 480px; margin: 0.8rem auto 0; font-size: 0.95rem; }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      aspect-ratio: 4/3;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-thumb {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      text-align: center;
+      font-weight: 500;
+      transition: transform 0.25s;
+      color: #fff;
+    }
+    .gallery-item:hover .gallery-thumb { transform: scale(1.04); }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(26,26,46,0.82);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+      transform: translateY(100%);
+      transition: transform 0.22s;
+    }
+    .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+    /* Product catalog table */
+    .product-table th {
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .product-table .price { color: var(--rust); font-weight: 600; }
+
+    /* Leaderboard */
+    .leaderboard-table th {
+      background: #2a2a40;
+      color: #ddd;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .rank-1 td:first-child { color: #f39c12; font-weight: 700; }
+    .rank-2 td:first-child { color: #95a5a6; font-weight: 700; }
+    .rank-3 td:first-child { color: #cd6133; font-weight: 700; }
+
+    /* Restaurant menu */
+    .menu-section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      border-bottom: 2px solid var(--rust);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-dish { font-weight: 500; font-size: 0.92rem; }
+    .menu-desc { font-size: 0.78rem; color: var(--warm-gray); }
+    .menu-price { color: var(--rust); font-weight: 600; font-size: 0.92rem; white-space: nowrap; margin-left: 1rem; }
+
+    /* Interactive demo */
+    .demo-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+    .demo-box h6 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      background: #aaa;
+      transition: background 0.3s;
+    }
+    .status-dot.online { background: #27ae60; }
+
+    /* Tooltip product card */
+    .product-card-wrap { position: relative; }
+    .tooltip-box {
+      position: absolute;
+      top: -44px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, top 0.2s;
+      z-index: 10;
+    }
+    .product-card-wrap:hover .tooltip-box { opacity: 1; top: -48px; }
+
+    /* Task cards */
+    .task-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .task-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--rust);
+    }
+    .task-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.09); transform: translateY(-2px); }
+    .task-num {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+    .task-card h5 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .task-card p {
+      font-size: 0.83rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Buttons */
+    .btn-rust {
+      background: var(--rust);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.8rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-rust:hover { opacity: 0.85; }
+    .btn-outline-cream {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      padding: 0.65rem 1.8rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .btn-outline-cream:hover { border-color: var(--ink); }
+
+    /* Contact page */
+    .contact-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+    .contact-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+    .contact-header p { color: #aaa; max-width: 480px; margin: 0.8rem auto 0; font-size: 0.95rem; }
+
+    .contact-info-card {
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: 6px;
+      padding: 2rem;
+      height: 100%;
+    }
+    .contact-info-card h5 {
+      font-family: 'DM Serif Display', serif;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.6rem;
+    }
+    .info-row { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.88rem; }
+    .info-icon { color: var(--rust); font-size: 1rem; margin-top: 1px; flex-shrink: 0; }
+    .info-text { color: #bbb; }
+
+    /* Form styles */
+    .form-control, .form-select {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 0.88rem;
+      background: var(--cream);
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--ink);
+      box-shadow: none;
+      background: #fff;
+    }
+    label { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--warm-gray); }
+
+    /* Login / register modals */
+    .modal-content { border-radius: 6px; border: none; }
+    .modal-header { background: var(--ink); color: var(--cream); border-radius: 6px 6px 0 0; }
+    .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; }
+    .btn-close { filter: invert(1); }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      color: #888;
+      text-align: center;
+      padding: 1.6rem;
+      font-size: 0.8rem;
+      margin-top: 3rem;
+    }
+    footer span { color: var(--rust); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: #c5bfb0; border-radius: 3px; }
+
+    /* CSS Class Toggle helpers */
+    .highlighted { background: lightblue !important; }
+    .completed { text-decoration: line-through; color: #aaa; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">Web<span>Dev</span> Portfolio</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="about.html#profile-section">Student Profile</a></li>
+            <li><a class="dropdown-item" href="about.html#course-section">Course Outline</a></li>
+            <li><a class="dropdown-item" href="about.html#skills-section">Skills &amp; Progress</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="about.html#dept-section">Department Info</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">Works</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#gallery-section">Gallery</a></li>
+            <li><a class="dropdown-item" href="#menu-section">Restaurant Menu</a></li>
+            <li><a class="dropdown-item" href="#catalog-section">Product Catalog</a></li>
+            <li><a class="dropdown-item" href="#leaderboard-section">Leaderboard</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#interactive-section">Interactive Demos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact-section">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 3 — WORKS
+═══════════════════════════════════ -->
+
+  <div class="works-header">
+    <p class="hero-eyebrow">Portfolio Work</p>
+    <h1>Tasks in Action</h1>
+    <p>Selected assignments rendered live — gallery, menu, catalog, leaderboard, and interactive demos.</p>
+  </div>
+
+  <!-- Gallery — Task 9, 45, 47 -->
+  <div class="section-wrap" id="gallery-section">
+    <p class="section-sub">TASKS 9, 43, 45, 47</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider"></div>
+
+    <!-- Main image fade demo (Task 47) -->
+    <div class="row g-3 mb-4 align-items-start">
+      <div class="col-md-7">
+        <div id="mainDisplay" style="background:linear-gradient(135deg,#c0392b,#1a1a2e);border-radius:6px;height:220px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'DM Serif Display',serif;font-size:1.4rem;transition:opacity 0.4s;">
+          Image Preview
+        </div>
+      </div>
+      <div class="col-md-5">
+        <p class="section-sub mb-2">Click thumbnails to fade &amp; switch (Task 47)</p>
+        <div class="gallery-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="gallery-item" onclick="fadeMain('linear-gradient(135deg,#c0392b,#1a1a2e)','Web Dev')">
+            <div class="gallery-thumb" style="background:linear-gradient(135deg,#c0392b,#1a1a2e);">Web Dev</div>
+            <div class="gallery-caption">Web Dev</div>
+          </div>
+          <div class="gallery-item" onclick="fadeMain('linear-gradient(135deg,#2e7d32,#1a2e1a)','Data Viz')">
+            <div class="gallery-thumb" style="background:linear-gradient(135deg,#2e7d32,#1a2e1a);">Data Viz</div>
+            <div class="gallery-caption">Data Viz</div>
+          </div>
+          <div class="gallery-item" onclick="fadeMain('linear-gradient(135deg,#1565c0,#0d2137)','UI Design')">
+            <div class="gallery-thumb" style="background:linear-gradient(135deg,#1565c0,#0d2137);">UI Design</div>
+            <div class="gallery-caption">UI Design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlapping z-index gallery (Task 45) -->
+    <p class="section-sub mt-3 mb-2">Overlapping images with z-index stacking (Task 45)</p>
+    <div style="position:relative;height:130px;margin-bottom:2rem;">
+      <div style="position:absolute;left:0;top:0;width:180px;height:110px;background:linear-gradient(135deg,#e67e22,#f39c12);border-radius:5px;z-index:1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:600;">z-index: 1</div>
+      <div style="position:absolute;left:80px;top:10px;width:180px;height:110px;background:linear-gradient(135deg,#8e44ad,#3498db);border-radius:5px;z-index:2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:600;">z-index: 2</div>
+      <div style="position:absolute;left:160px;top:20px;width:180px;height:110px;background:linear-gradient(135deg,#27ae60,#1abc9c);border-radius:5px;z-index:3;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:600;">z-index: 3 (top)</div>
+    </div>
+
+    <!-- Image + caption overlay (Task 43) -->
+    <p class="section-sub mb-2">Image with absolute-positioned caption (Task 43)</p>
+    <div style="position:relative;display:inline-block;border-radius:5px;overflow:hidden;width:100%;max-width:380px;">
+      <div style="background:linear-gradient(135deg,#2c3e50,#bdc3c7);height:160px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;font-family:'DM Serif Display',serif;">Product Image</div>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(26,26,46,0.85);color:#fff;padding:0.5rem 0.8rem;font-size:0.82rem;">Absolute-positioned caption overlay</div>
+    </div>
+  </div>
+
+  <!-- Restaurant Menu — Task 11, 13 -->
+  <div style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section-wrap" id="menu-section">
+      <p class="section-sub">TASKS 11 · 13</p>
+      <h2 class="section-title">Restaurant Menu</h2>
+      <div class="divider"></div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="menu-section-title">Starters</div>
+          <div class="menu-item"><div><div class="menu-dish">Veg Spring Rolls</div><div class="menu-desc">Crispy rolls with mixed veggies</div></div><div class="menu-price">₹120</div></div>
+          <div class="menu-item"><div><div class="menu-dish">Soup of the Day</div><div class="menu-desc">Ask your server</div></div><div class="menu-price">₹90</div></div>
+          <div class="menu-item"><div><div class="menu-dish">Paneer Tikka</div><div class="menu-desc">Marinated cottage cheese, grilled</div></div><div class="menu-price">₹180</div></div>
+        </div>
+        <div class="col-md-4">
+          <div class="menu-section-title">Mains</div>
+          <div class="menu-item"><div><div class="menu-dish">Butter Chicken</div><div class="menu-desc">Creamy tomato-based curry</div></div><div class="menu-price">₹260</div></div>
+          <div class="menu-item"><div><div class="menu-dish">Dal Makhani</div><div class="menu-desc">Slow-cooked black lentils</div></div><div class="menu-price">₹200</div></div>
+          <div class="menu-item"><div><div class="menu-dish">Veg Biryani</div><div class="menu-desc">Fragrant basmati with spices</div></div><div class="menu-price">₹220</div></div>
+        </div>
+        <div class="col-md-4">
+          <div class="menu-section-title">Desserts</div>
+          <div class="menu-item"><div><div class="menu-dish">Gulab Jamun</div><div class="menu-desc">Soft milk-solid dumplings in syrup</div></div><div class="menu-price">₹80</div></div>
+          <div class="menu-item"><div><div class="menu-dish">Ice Cream (2 scoops)</div><div class="menu-desc">Vanilla · Chocolate · Mango</div></div><div class="menu-price">₹100</div></div>
+          <div class="menu-item"><div><div class="menu-dish">Rasgulla</div><div class="menu-desc">Bengali cottage cheese balls</div></div><div class="menu-price">₹70</div></div>
+        </div>
+      </div>
+
+      <p class="section-sub mt-4 mb-2">Menu as HTML Table (Task 13)</p>
+      <div class="table-responsive">
+        <table class="table product-table table-bordered table-hover align-middle">
+          <thead><tr><th>Dish</th><th>Description</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td>Veg Spring Rolls</td><td>Crispy rolls with mixed veggies</td><td class="price">₹120</td></tr>
+            <tr><td>Butter Chicken</td><td>Creamy tomato-based curry</td><td class="price">₹260</td></tr>
+            <tr><td>Gulab Jamun</td><td>Soft milk-solid dumplings in syrup</td><td class="price">₹80</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Catalog — Task 16, 22 -->
+  <div class="section-wrap" id="catalog-section">
+    <p class="section-sub">TASKS 16 · 22 · 42 (Tooltip)</p>
+    <h2 class="section-title">Product Catalog</h2>
+    <div class="divider"></div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="product-card-wrap task-card text-center">
+          <div class="tooltip-box">Hover tooltip (Task 42)</div>
+          <div style="font-size:2rem;margin-bottom:0.5rem;">💻</div>
+          <div class="task-num">Electronics</div>
+          <h5 style="font-size:0.95rem;">Laptop Stand</h5>
+          <p style="font-size:0.78rem;">Adjustable aluminium stand</p>
+          <div class="menu-price mt-2">₹1,499</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="product-card-wrap task-card text-center">
+          <div class="tooltip-box">Hover tooltip (Task 42)</div>
+          <div style="font-size:2rem;margin-bottom:0.5rem;">🖱️</div>
+          <div class="task-num">Peripherals</div>
+          <h5 style="font-size:0.95rem;">Wireless Mouse</h5>
+          <p style="font-size:0.78rem;">Ergonomic, 2.4GHz</p>
+          <div class="menu-price mt-2">₹799</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="product-card-wrap task-card text-center">
+          <div class="tooltip-box">Hover tooltip (Task 42)</div>
+          <div style="font-size:2rem;margin-bottom:0.5rem;">⌨️</div>
+          <div class="task-num">Peripherals</div>
+          <h5 style="font-size:0.95rem;">Mechanical Keyboard</h5>
+          <p style="font-size:0.78rem;">TKL, Blue switches</p>
+          <div class="menu-price mt-2">₹2,299</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="product-card-wrap task-card text-center">
+          <div class="tooltip-box">Hover tooltip (Task 42)</div>
+          <div style="font-size:2rem;margin-bottom:0.5rem;">🎧</div>
+          <div class="task-num">Audio</div>
+          <h5 style="font-size:0.95rem;">USB Headset</h5>
+          <p style="font-size:0.78rem;">Noise-cancelling mic</p>
+          <div class="menu-price mt-2">₹1,199</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product catalog table -->
+    <div class="table-responsive">
+      <table class="table product-table table-bordered table-hover align-middle">
+        <thead><tr><th>#</th><th>Product</th><th>Category</th><th>Stock</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Laptop Stand</td><td>Electronics</td><td>42</td><td class="price">₹1,499</td></tr>
+          <tr><td>2</td><td>Wireless Mouse</td><td>Peripherals</td><td>135</td><td class="price">₹799</td></tr>
+          <tr><td>3</td><td>Mechanical Keyboard</td><td>Peripherals</td><td>28</td><td class="price">₹2,299</td></tr>
+          <tr><td>4</td><td>USB Headset</td><td>Audio</td><td>60</td><td class="price">₹1,199</td></tr>
+          <tr><td>5</td><td>Webcam 1080p</td><td>Electronics</td><td>19</td><td class="price">₹1,999</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Leaderboard — Task 14 -->
+  <div style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section-wrap" id="leaderboard-section">
+      <p class="section-sub">TASK 14</p>
+      <h2 class="section-title">Student Leaderboard</h2>
+      <div class="divider"></div>
+
+      <div class="table-responsive">
+        <table class="table leaderboard-table table-bordered table-hover align-middle">
+          <thead><tr><th>Rank</th><th>Name</th><th>Reg. No</th><th>Score</th><th>Grade</th></tr></thead>
+          <tbody>
+            <tr class="rank-1"><td>🥇 1st</td><td>Ananya Sharma</td><td>22BCE1234</td><td>98</td><td>A+</td></tr>
+            <tr class="rank-2"><td>🥈 2nd</td><td>Rohan Mehta</td><td>22BCE2345</td><td>95</td><td>A+</td></tr>
+            <tr class="rank-3"><td>🥉 3rd</td><td>Divya Nair</td><td>22BCE3456</td><td>92</td><td>A</td></tr>
+            <tr><td>4th</td><td>Karthik Raj</td><td>22BCE4567</td><td>89</td><td>A</td></tr>
+            <tr><td>5th</td><td>Priya Singh</td><td>22BCE5678</td><td>85</td><td>B+</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Student profiles table (Task 15) -->
+      <p class="section-sub mt-4 mb-2">Student Profiles Table (Task 15)</p>
+      <div class="table-responsive">
+        <table class="table product-table table-bordered align-middle">
+          <thead><tr><th>Photo</th><th>Name</th><th>Reg. No</th><th>Major</th><th>CGPA</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div style="width:36px;height:36px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'DM Serif Display',serif;">A</div></td>
+              <td>Ananya Sharma</td><td>22BCE1234</td><td>CSE</td><td>9.6</td>
+            </tr>
+            <tr>
+              <td><div style="width:36px;height:36px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'DM Serif Display',serif;">R</div></td>
+              <td>Rohan Mehta</td><td>22BCE2345</td><td>CSE</td><td>9.2</td>
+            </tr>
+            <tr>
+              <td><div style="width:36px;height:36px;border-radius:50%;background:#1565c0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'DM Serif Display',serif;">D</div></td>
+              <td>Divya Nair</td><td>22BCE3456</td><td>IT</td><td>9.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive demos — Tasks 28–50 -->
+  <div class="section-wrap" id="interactive-section">
+    <p class="section-sub">TASKS 28–50 · JavaScript Demos</p>
+    <h2 class="section-title">Interactive Demos</h2>
+    <div class="divider"></div>
+
+    <div class="row g-3">
+
+      <!-- Task 28/31: Button alert / Show Message -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Show / Alert (Tasks 28, 31)</h6>
+          <button class="btn-rust w-100 mb-2" onclick="alert('Hello from Task 28! 👋')">Show Alert</button>
+          <button class="btn-outline-cream w-100" onclick="toggleMsg()">Show / Hide Message</button>
+          <p id="togglePara" style="display:none;margin-top:0.8rem;font-size:0.85rem;background:var(--cream);padding:0.5rem;border-radius:3px;">✅ This paragraph is now visible! (Task 46)</p>
+        </div>
+      </div>
+
+      <!-- Task 29: Input + Submit -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Input on Submit (Task 29)</h6>
+          <div class="mb-2">
+            <label class="mb-1">Enter text</label>
+            <input type="text" id="inputDemo" class="form-control" placeholder="Type something..." />
+          </div>
+          <button class="btn-rust w-100" onclick="submitInput()">Submit</button>
+          <p id="inputResult" style="margin-top:0.6rem;font-size:0.83rem;color:var(--warm-gray);"></p>
+        </div>
+      </div>
+
+      <!-- Task 30: calculateTotal -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>calculateTotal() (Task 30)</h6>
+          <div class="row g-2 mb-2">
+            <div class="col-6">
+              <label class="mb-1">Price (₹)</label>
+              <input type="number" id="priceIn" class="form-control" value="100" />
+            </div>
+            <div class="col-6">
+              <label class="mb-1">Qty</label>
+              <input type="number" id="qtyIn" class="form-control" value="3" />
+            </div>
+          </div>
+          <button class="btn-rust w-100" onclick="calcTotal()">Calculate</button>
+          <p id="totalResult" style="margin-top:0.6rem;font-size:0.83rem;color:var(--warm-gray);"></p>
+        </div>
+      </div>
+
+      <!-- Task 32: Status toggle -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Status Color Toggle (Task 32)</h6>
+          <p id="statusText" style="font-size:0.9rem;"><span class="status-dot" id="statusDot"></span>Status: <span id="statusLabel">Offline</span></p>
+          <button class="btn-rust mt-2 w-100" onclick="toggleStatus()">Toggle Status</button>
+        </div>
+      </div>
+
+      <!-- Task 38/39: Register + focus() -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Register + focus() (Tasks 38, 39)</h6>
+          <div class="mb-2">
+            <label class="mb-1">Username</label>
+            <input type="text" id="regUser" class="form-control" placeholder="username" />
+          </div>
+          <div class="mb-2">
+            <label class="mb-1">Email</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="email" />
+          </div>
+          <button class="btn-rust w-100" onclick="focusUser()">Focus Username</button>
+        </div>
+      </div>
+
+      <!-- Task 40: Mouseover product image -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Mouseover Image (Task 40)</h6>
+          <div id="hoverImg"
+            onmouseover="this.style.background='linear-gradient(135deg,#c0392b,#e67e22)';this.querySelector('span').textContent='🔥 Hovered!'"
+            onmouseout="this.style.background='linear-gradient(135deg,#1a1a2e,#2a2a50)';this.querySelector('span').textContent='Hover over me'"
+            style="background:linear-gradient(135deg,#1a1a2e,#2a2a50);border-radius:5px;height:90px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.3s;">
+            <span style="color:#fff;font-size:0.85rem;">Hover over me</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--warm-gray);margin-top:0.5rem;">mouseover / mouseout events applied</p>
+        </div>
+      </div>
+
+      <!-- Task 41: Real-time email validation -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Real-time Validation (Task 41)</h6>
+          <label class="mb-1">Email</label>
+          <input type="email" id="rtEmail" class="form-control mb-2" placeholder="you@example.com" oninput="validateEmail()" />
+          <label class="mb-1">Password (min 6 chars)</label>
+          <input type="password" id="rtPass" class="form-control" placeholder="password" oninput="validatePass()" />
+          <p id="rtResult" style="font-size:0.78rem;margin-top:0.5rem;color:var(--warm-gray);"></p>
+        </div>
+      </div>
+
+      <!-- Task 48/49: Class toggles -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Class Toggle (Tasks 48, 49)</h6>
+          <p id="hlText" style="font-size:0.88rem;padding:0.4rem;border-radius:3px;transition:background 0.3s;">Click to highlight this text.</p>
+          <button class="btn-rust w-100 mb-2" style="font-size:0.8rem;padding:0.4rem;" onclick="document.getElementById('hlText').classList.toggle('highlighted')">Toggle .highlight</button>
+          <p id="compText" style="font-size:0.88rem;padding:0.4rem;border-radius:3px;">Mark as completed</p>
+          <button class="btn-rust w-100" style="font-size:0.8rem;padding:0.4rem;background:var(--ink);" onclick="document.getElementById('compText').classList.toggle('completed')">Toggle .completed</button>
+        </div>
+      </div>
+
+      <!-- Task 42 modals -->
+      <div class="col-md-4">
+        <div class="demo-box">
+          <h6>Multiple Modals (Task 42)</h6>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn-rust" style="font-size:0.78rem;padding:0.35rem 0.9rem;" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+            <button class="btn-rust" style="font-size:0.78rem;padding:0.35rem 0.9rem;background:#1565c0;" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+            <button class="btn-rust" style="font-size:0.78rem;padding:0.35rem 0.9rem;background:#2e7d32;" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirm</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+  </div>
+
+
+<!-- ═══════════════════════════════════
+     CONTACT SECTION
+═══════════════════════════════════ -->
+<div id="contact-section">
+
+  <div class="contact-header">
+    <p class="hero-eyebrow">Get In Touch</p>
+    <h1>Contact</h1>
+    <p>Questions, feedback, or collaboration? Drop a message below.</p>
+  </div>
+
+  <div class="section-wrap">
+    <div class="row g-4">
+
+      <!-- Info block (Task 10) -->
+      <div class="col-md-4">
+        <div class="contact-info-card">
+          <h5>Contact Info</h5>
+          <div class="info-row">
+            <div class="info-icon">📍</div>
+            <div class="info-text">VIT University, Vellore, Tamil Nadu – 632014</div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">📞</div>
+            <div class="info-text">+91 98765 43210</div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">✉️</div>
+            <div class="info-text">student@example.com</div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">🌐</div>
+            <div class="info-text">github.com/student-portfolio</div>
+          </div>
+          <div style="border-top:1px solid #333;margin-top:1.5rem;padding-top:1.2rem;">
+            <p style="font-size:0.78rem;color:#888;margin:0;">This form uses HTML5 + JS validation (Tasks 23, 27, 33–37).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact form (Tasks 23, 27, 33–37) -->
+      <div class="col-md-8">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:2rem;">
+          <h5 class="section-title" style="font-size:1.2rem;margin-bottom:1.5rem;">Send a Message</h5>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="mb-1">Full Name *</label>
+              <input type="text" id="cf-name" class="form-control" placeholder="Your name" />
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1">Email *</label>
+              <input type="email" id="cf-email" class="form-control" placeholder="you@example.com" />
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1">Phone</label>
+              <input type="tel" id="cf-phone" class="form-control" placeholder="+91 XXXXX XXXXX" />
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1">Subject</label>
+              <select id="cf-subject" class="form-select">
+                <option value="">Select topic</option>
+                <option>Assignment Query</option>
+                <option>Collaboration</option>
+                <option>Feedback</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="mb-1">Message *</label>
+              <textarea id="cf-message" class="form-control" rows="4" placeholder="Write your message..."></textarea>
+            </div>
+            <div class="col-12">
+              <button class="btn-rust" onclick="submitContact()">Send Message</button>
+              <p id="cf-result" style="display:inline-block;margin-left:1rem;font-size:0.85rem;"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel booking form (Task 37) -->
+        <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-top:1.2rem;">
+          <h6 style="font-family:'DM Serif Display',serif;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.5rem;">Hotel Booking Form (Task 37)</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="mb-1">Guest Name</label>
+              <input type="text" class="form-control" placeholder="Guest name" />
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1">Contact Number</label>
+              <input type="tel" class="form-control" placeholder="+91 XXXXX XXXXX" />
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1">Room Type</label><br/>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="room" id="single" value="single" />
+                <label class="form-check-label" for="single" style="text-transform:none;font-size:0.85rem;">Single</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="room" id="double" value="double" />
+                <label class="form-check-label" for="double" style="text-transform:none;font-size:0.85rem;">Double</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="room" id="suite" value="suite" />
+                <label class="form-check-label" for="suite" style="text-transform:none;font-size:0.85rem;">Suite</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="mb-1">Check-in Date</label>
+              <input type="date" class="form-control" />
+            </div>
+            <div class="col-12">
+              <button class="btn-rust" style="font-size:0.82rem;padding:0.5rem 1.2rem;" onclick="alert('Booking confirmed! ✅')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Login/Register section (Tasks 20, 25, 26, 35) -->
+  <div style="background:#fff;border-top:1px solid var(--border);">
+    <div class="section-wrap">
+      <p class="section-sub">TASKS 20, 25, 26, 35</p>
+      <h2 class="section-title">Login &amp; Register Forms</h2>
+      <div class="divider"></div>
+      <div class="d-flex gap-3 flex-wrap">
+        <button class="btn-rust" data-bs-toggle="modal" data-bs-target="#loginModal">Open Login Form</button>
+        <button class="btn-rust" style="background:var(--ink);" data-bs-toggle="modal" data-bs-target="#signupModal">Open Registration Form</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /contact-section -->
+
+
+<footer>
+  Web Technologies Portfolio &nbsp;·&nbsp; Moodle Tasks 1–51 &nbsp;·&nbsp; Built with <span>HTML · CSS · JS · Bootstrap</span>
+</footer>
+
+
+<!-- ═══════════════════════════════════
+     MODALS (Task 42)
+═══════════════════════════════════ -->
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="mb-3">
+          <label class="mb-1">Username / Email *</label>
+          <input type="text" id="loginUser" class="form-control" placeholder="Enter username or email" />
+        </div>
+        <div class="mb-3">
+          <label class="mb-1">Password *</label>
+          <input type="password" id="loginPass" class="form-control" placeholder="Enter password" />
+        </div>
+        <p id="loginErr" style="font-size:0.82rem;color:var(--rust);display:none;">Please fill in all fields.</p>
+        <button class="btn-rust w-100" onclick="doLogin()">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#1565c0;">
+        <h5 class="modal-title">Register</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-3">
+          <div class="col-6">
+            <label class="mb-1">First Name *</label>
+            <input type="text" id="reg-fname" class="form-control" placeholder="First" />
+          </div>
+          <div class="col-6">
+            <label class="mb-1">Last Name *</label>
+            <input type="text" id="reg-lname" class="form-control" placeholder="Last" />
+          </div>
+          <div class="col-12">
+            <label class="mb-1">Email *</label>
+            <input type="email" id="reg-email2" class="form-control" placeholder="you@example.com" />
+          </div>
+          <div class="col-12">
+            <label class="mb-1">Phone</label>
+            <input type="tel" id="reg-phone" class="form-control" placeholder="+91 XXXXX XXXXX" />
+          </div>
+          <div class="col-12">
+            <label class="mb-1">Password *</label>
+            <input type="password" id="reg-pass" class="form-control" placeholder="Min 6 characters" />
+          </div>
+          <div class="col-12">
+            <label class="mb-1">Confirm Password *</label>
+            <input type="password" id="reg-cpass" class="form-control" placeholder="Repeat password" />
+          </div>
+        </div>
+        <p id="regErr" style="font-size:0.82rem;color:var(--rust);margin-top:0.6rem;display:none;"></p>
+        <button class="btn-rust w-100 mt-3" style="background:#1565c0;" onclick="doRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#2e7d32;">
+        <h5 class="modal-title">Confirm Action</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4 text-center">
+        <p style="font-size:0.9rem;">Are you sure you want to proceed?</p>
+        <div class="d-flex gap-2 justify-content-center mt-3">
+          <button class="btn-rust" style="background:#2e7d32;" onclick="alert('Confirmed! ✅');bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide()">Yes, Confirm</button>
+          <button class="btn-rust" style="background:#888;" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* ─── Smooth scroll to hash on load ─── */
+  window.addEventListener('load', () => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  });
+
+  /* ─── GALLERY FADE (Task 47) ─── */
+  function fadeMain(bg, label) {
+    const el = document.getElementById('mainDisplay');
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.style.background = bg;
+      el.textContent = label;
+      el.style.opacity = 1;
+    }, 300);
+  }
+
+  /* ─── SHOW/HIDE TOGGLE (Task 46) ─── */
+  function toggleMsg() {
+    const p = document.getElementById('togglePara');
+    p.style.display = p.style.display === 'none' ? 'block' : 'none';
+  }
+
+  /* ─── INPUT SUBMIT (Task 29) ─── */
+  function submitInput() {
+    const val = document.getElementById('inputDemo').value.trim();
+    document.getElementById('inputResult').textContent = val ? '📩 You entered: "' + val + '"' : '⚠️ Please type something first.';
+  }
+
+  /* ─── CALCULATE TOTAL (Task 30) ─── */
+  function calcTotal() {
+    const p = parseFloat(document.getElementById('priceIn').value) || 0;
+    const q = parseInt(document.getElementById('qtyIn').value) || 0;
+    document.getElementById('totalResult').textContent = '💰 Total: ₹' + (p * q).toFixed(2);
+  }
+
+  /* ─── STATUS TOGGLE (Task 32) ─── */
+  let isOnline = false;
+  function toggleStatus() {
+    isOnline = !isOnline;
+    document.getElementById('statusDot').classList.toggle('online', isOnline);
+    document.getElementById('statusLabel').textContent = isOnline ? 'Online' : 'Offline';
+    document.getElementById('statusLabel').style.color = isOnline ? '#27ae60' : '#aaa';
+  }
+
+  /* ─── FOCUS (Task 39) ─── */
+  function focusUser() { document.getElementById('regUser').focus(); }
+
+  /* ─── EMAIL / PASS VALIDATION (Task 41) ─── */
+  function validateEmail() {
+    const v = document.getElementById('rtEmail').value;
+    document.getElementById('rtResult').textContent = '';
+    if (v && !/\S+@\S+\.\S+/.test(v)) {
+      document.getElementById('rtResult').textContent = '⚠️ Invalid email format';
+      document.getElementById('rtResult').style.color = 'var(--rust)';
+    }
+  }
+  function validatePass() {
+    const v = document.getElementById('rtPass').value;
+    document.getElementById('rtResult').textContent = v.length > 0 && v.length < 6
+      ? '⚠️ Password must be at least 6 characters'
+      : v.length >= 6 ? '✅ Password looks good' : '';
+    document.getElementById('rtResult').style.color = v.length >= 6 ? '#27ae60' : 'var(--rust)';
+  }
+
+  /* ─── CONTACT FORM (Tasks 23, 27, 33–37) ─── */
+  function submitContact() {
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const message = document.getElementById('cf-message').value.trim();
+    const res     = document.getElementById('cf-result');
+    if (!name || !email || !message) {
+      res.textContent = '⚠️ Please fill in all required fields.';
+      res.style.color = 'var(--rust)';
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      res.textContent = '⚠️ Invalid email address.';
+      res.style.color = 'var(--rust)';
+      return;
+    }
+    res.textContent = '✅ Message sent successfully!';
+    res.style.color = '#27ae60';
+  }
+
+  /* ─── LOGIN (Task 35) ─── */
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginErr');
+    if (!u || !p) { err.style.display = 'block'; err.textContent = '⚠️ Please fill in all fields.'; return; }
+    err.style.display = 'none';
+    alert('✅ Login successful! Welcome, ' + u);
+    bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+  }
+
+  /* ─── REGISTER (Tasks 26, 33) ─── */
+  function doRegister() {
+    const fn = document.getElementById('reg-fname').value.trim();
+    const ln = document.getElementById('reg-lname').value.trim();
+    const em = document.getElementById('reg-email2').value.trim();
+    const pw = document.getElementById('reg-pass').value;
+    const cp = document.getElementById('reg-cpass').value;
+    const err = document.getElementById('regErr');
+    if (!fn || !ln || !em || !pw || !cp) { err.style.display='block'; err.textContent='⚠️ All starred fields are required.'; return; }
+    if (!/\S+@\S+\.\S+/.test(em))        { err.style.display='block'; err.textContent='⚠️ Invalid email address.'; return; }
+    if (pw.length < 6)                    { err.style.display='block'; err.textContent='⚠️ Password must be at least 6 characters.'; return; }
+    if (pw !== cp)                        { err.style.display='block'; err.textContent='⚠️ Passwords do not match.'; return; }
+    err.style.display = 'none';
+    alert('✅ Account created! Welcome, ' + fn + ' ' + ln);
+    bootstrap.Modal.getInstance(document.getElementById('signupModal')).hide();
+  }
+</script>
+</body>
+</html>
